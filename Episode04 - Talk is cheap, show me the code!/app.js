@@ -1,42 +1,65 @@
 import React from "react";
-import ReactDOM from "react-dom/client"
-
-
+import ReactDOM from "react-dom/client";
 
 export const Header = () => {
   return (
     <div className="header">
+      <div className="logo-container">
+        <img
+          className="logo"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdaMYtVi9_tfNcpsbGGseU6ehYgV9UeU3h7A&s"
+          alt=""
+        />
+      </div>
 
-        <div className="logo-container">
-            <img className="logo" src="https://marketplace.canva.com/EAGZJ2Na9V0/1/0/1600w/canva-red-and-orange-bold-fast-food-restaurant-animated-logo-0ujmrXVcncU.jpg" alt="" />
-        </div>
+      <div className="nav-item">
+        <ul>
+          <li>Home</li>
+          <li>About us</li>
+          <li>Contact us</li>
+          <li>🛒</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-        <div className="nav-item">
 
-            <ul>
-                <li>Home</li>
-                <li>About us</li>
-                <li>Contact us</li>
-                <li>🛒</li>
-            </ul>
 
-        </div>
+export const RestaurantCard = () => {
+  return (
+    <div className="res-card">
+        <h3>Meghana Foods</h3>
+
     </div>
   )
 }
 
 
 
-const  AppLayout = () => {
-    return (
-        <div className="app">
 
-            <Header/>
-
+export const Body = () => {
+  return (
+    <div className="body">
+        <div className="serach">Search</div>
+        <div className="res-container">
+            <RestaurantCard/>
         </div>
-    )
+
+    </div>
+  )
 }
+
+
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body/>       
+    </div>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppLayout/>)
+root.render(<AppLayout />);

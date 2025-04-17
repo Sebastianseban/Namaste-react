@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 0px 20px;
+}
+.nav-item{
+    justify-content: center;
+    align-items: center;
+}
+.nav-item > ul {
+  display: flex;
+  list-style-type: none;
+  
+  
+
+}
+.logo {
+  width: 150px;
+}
+.nav-item > ul > li {
+
+ font-size: 24px;
+  padding: 10px;
+}
+
+.res-card {
+    height: 200px;
+    width: 300px;
+    border: 1px solid black;
+    display:  flex;
+    justify-content: center;
+}
