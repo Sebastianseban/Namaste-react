@@ -161,3 +161,11 @@ A: DOM stands for `Document Object Model`, which represents your application UI 
 | Creates a new DOM if the element updates.                        | Update the JSX if the element update                     |
 | It allows us to directly target any specific node (HTML element) | It can produce about 200,000 Virtual DOM Nodes / Second. |
 | It represents the UI of your application                         | It is only a virtual representation of the DOM           |
+
+ [Akshay Saini Code Link](https://bitbucket.org/namastedev/namaste-react-live/src/master/)
+- [React without JSX](https://reactjs.org/docs/react-without-jsx.html)
+- [Virtual DOM](https://reactjs.org/docs/faq-internals.html)
+- [Reconciliation](https://reactjs.org/docs/reconciliation.html)
+- [React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture)
+- [React Without ES6](https://reactjs.org/docs/react-without-es6.html)
+- [Index Keys as Anti-Pattern](https://robinpokorny.com/blog/index-as-a-key-is-an-anti-pattern/)
