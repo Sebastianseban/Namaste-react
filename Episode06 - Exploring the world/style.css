@@ -211,3 +211,13 @@ body {
 .footer > strong > span {
   color: orange;
 }
+
+.login{
+  padding: 0px 20px;
+  background-color: rgba(255, 0, 0, 0.557);
+  border: none;
+  text-align: center;
+  border-radius: 10px
+ 
+
+}
