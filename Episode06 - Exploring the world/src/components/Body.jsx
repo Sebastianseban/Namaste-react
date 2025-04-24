@@ -1,58 +1,75 @@
-import React, { useEffect } from 'react'
-import RestaurantCard from './RestaurantCard';
-import restaurantList from '../utils/mockData';
-import { useState } from 'react';
-
+import { useState, useEffect } from "react";
+import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
+import {
+  SWIGGY_API_URL,
+  SWIGGY_REST_API_PATH,
+} from "../../../../../../../../public/common/constants";
 
 const Body = () => {
-    const [restaurent, setRestaurent] = useState(restaurantList)
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [searchRestaurant, setSearchRestaurant] = useState("");
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [restaurantName, setRestaurantName] = useState("");
 
-    // useEffect(()=>{
-    //   fetchData()
-    // },[])
+  const fetchData = async () => {
+    try {
+      const data = await fetch(SWIGGY_API_URL);
+      const json = await data.json();
+      const restaurants = eval("json?." + SWIGGY_REST_API_PATH) || [];
 
-    // const fetchData = async () => {
-    //   try {
-    //     const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.624480699999999&page_type=DESKTOP_WEB_LISTING');
-    //     const json = await data.json();
-    
-    //     console.log(json);
-    //     setRestaurent(json?.data?.cards[2]?.data?.data?.cards || []);
-    //   } catch (error) {
-    //     console.error("Failed to fetch data:", error);
-    //   }
-    // };
-
-
-
-  
-    return (
-      <div className="body">
-        <div className="search-box">
-          <input placeholder="search" />
-          {/* <CiSearch className="search-icon" /> */}
-        </div>
-        <div className='filter'>
-            <button
-
-            onClick={()=>{
-                const filteredList = restaurantList.filter((res)=> res.info.avgRating > 4);
-                setRestaurent(filteredList)
-            }}
-            
-            className='filter-btn'>Top Rated Restaurant</button>
-        </div>
-        <div className="restaurant-container">
-
-          {restaurent.map((restaurant) => (
-            <RestaurantCard
-              key={restaurant.info.id}
-              restaurantData={restaurant}
-            />
-          ))}
-        </div>
-      </div>
-    );
+      setRestaurantList(restaurants);
+      setFilteredRestaurants(restaurants);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
-export default Body
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    const filtered = restaurantList.filter((res) =>
+      res.info.name.toLowerCase().includes(searchRestaurant.toLowerCase())
+    );
+
+    setFilteredRestaurants(filtered);
+    setSearchRestaurant(""); // Clear the search input box after search
+    setRestaurantName(searchRestaurant);
+  };
+
+  // Conditional rendering using ternary operator
+  return restaurantList.length === 0 ? (
+    <Shimmer />
+  ) : (
+    <div className="body">
+      <div className="search-box">
+        <input
+          type="text"
+          value={searchRestaurant}
+          onChange={(e) => setSearchRestaurant(e.target.value)}
+          placeholder="search a restaurant you want..."
+        />
+        <button className="search" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
+
+      <div className="restaurant-container">
+        {filteredRestaurants.length !== 0 ? (
+          filteredRestaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant?.info?.id}
+              {...restaurant?.info}
+            />
+          ))
+        ) : (
+          <h2>Sorry, we couldn't find any restaurant for "{restaurantName}"</h2>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Body;
