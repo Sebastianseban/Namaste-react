@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import {
-  SWIGGY_API_URL,
-  SWIGGY_REST_API_PATH,
-} from "../../../../../../../../public/common/constants";
+// import {
+//   SWIGGY_API_URL,
+//   SWIGGY_REST_API_PATH,
+// } from "../../../../../../../../public/common/constants";
 
 const Body = () => {
   const [restaurantList, setRestaurantList] = useState([]);
