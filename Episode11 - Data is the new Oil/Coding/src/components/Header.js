@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import tastyTrailsLogo from "../../../../public/images/tasty-trails-logo.png";
 import { FaCartArrowDown } from "react-icons/fa";
 import "../styles/Header.css";
 import useOnlineStatus from "../hooks/useOnlineStatus";
+import userContext from "../utils/userContext";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const navigate = useNavigate();
 
   const isOnline = useOnlineStatus();
+
+  const {loggedInUser} = useContext(userContext)
 
   return (
     <div className="header">
