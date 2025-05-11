@@ -10,47 +10,38 @@ import { SiGmail, SiLinkedin, SiGithub, SiTwitter } from "react-icons/si";
 class SocialProfileClass extends Component {
   constructor(props) {
     super(props); // Call the super constructor with props
-
-    // console.log("Inner Child - SocialProfileClass constructor() Called");
-  }
-
-  componentDidMount() {
-    // console.log("Inner Child - SocialProfileClass componentDidMount() Called");
-  }
-
-  componentDidUpdate() {
-    // console.log("Inner Child - SocialProfileClass componentDidUpdate() Called");
-  }
-
-  componentWillUnmount() {
-    // console.log("Inner Child - SocialProfileClass componentWillUnmount() Called");
   }
 
   render() {
-    // console.log("Inner Child - SocialProfileClass render() Method Called");
-
     return (
-      <div className="social-media-container">
-        <a
-          href={LINKEDIN_LINK}
-          className="icon-button linkedin"
-          target="_blank"
-        >
-          <i>
+      <div className="text-[2rem] w-full flex justify-center items-center gap-[7%]">
+        <a href={LINKEDIN_LINK} target="_blank">
+          <i className="text-white bg-[#0a66c2] flex items-center justify-center h-[2.6rem] w-[2.6rem] rounded-[50%] text-[1.2rem] leading-[3rem] hover:scale-[1.05] transition-transform duration-300 ease-in-out">
             <SiLinkedin />
           </i>
         </a>
-        <a href={TWITTER_LINK} className="icon-button twitter" target="_blank">
+        <a
+          href={TWITTER_LINK}
+          className="text-white bg-[#00acee] flex items-center justify-center h-[2.6rem] w-[2.6rem] rounded-[50%] text-[1.2rem] leading-[3rem] hover:scale-[1.05] transition-transform duration-300 ease-in-out"
+          target="_blank"
+        >
           <i>
             <SiTwitter />
           </i>
         </a>
-        <a href={GiTHUB_LINK} className="icon-button github" target="_blank">
+        <a
+          href={GiTHUB_LINK}
+          className="text-white bg-[#333] flex items-center justify-center h-[2.6rem] w-[2.6rem] rounded-[50%] text-[1.2rem] leading-[3rem] hover:scale-[1.05] transition-transform duration-300 ease-in-out"
+          target="_blank"
+        >
           <i>
             <SiGithub />
           </i>
         </a>
-        <a href={"mailto:" + EMAIL_LINK} className="icon-button email">
+        <a
+          href={"mailto:" + EMAIL_LINK}
+          className="text-white bg-[#ea4335] flex items-center justify-center h-[2.6rem] w-[2.6rem] rounded-[50%] text-[1.2rem] leading-[3rem] hover:scale-[1.05] transition-transform duration-300 ease-in-out"
+        >
           <i>
             <SiGmail />
           </i>

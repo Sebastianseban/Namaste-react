@@ -3,21 +3,17 @@ import ProfileUserClass from "./ProfileUserClass";
 import ProfileRepoClass from "./ProfileRepoClass";
 import {
   GITHUB_USER_API,
-  GITHUB_USERNAME
+  GITHUB_USERNAME,
 } from "../../../../public/common/constants";
-import "../styles/ProfileClass.css";
 
 class profileClass extends Component {
   constructor(props) {
     super(props); // Call the super constructor with props
 
-    // console.log(props);
-    // console.log("Parent - UserClass constructor() Called");
-
     // Initialize the state of the component
     this.state = {
       userInfo: {
-        name: "sebastian", // default values
+        name: "Bharat Kumar", // default values
         bio: "Java | React.js", // default values
         followers: 5, // default values
         avatar_url:
@@ -31,8 +27,6 @@ class profileClass extends Component {
       const response = await fetch(GITHUB_USER_API + GITHUB_USERNAME);
       const json = await response.json();
 
-      // console.log(json);
-
       this.setState({
         userInfo: json,
       });
@@ -42,42 +36,28 @@ class profileClass extends Component {
   }
 
   componentDidMount() {
-    // console.log("Parent - UserClass componentDidMount() Called");
-
-    // this.timer = setInterval(() => {
-    //   console.log("setInterval Called - Namaste React OP");
-    // }, 1000);
-
     // API Calls (Fetch Data)
     this.getUserInfo();
   }
 
-  componentDidUpdate() {
-    // console.log("Parent - UserClass componentDidUpdate() Called");
-  }
-
-  componentWillUnmount() {
-    // console.log("Parent - UserClass componentWillUnmount() Called");
-    // clearInterval(this.timer);
-  }
-
   render() {
-    // console.log("Parent - UserClass render() Method Called");
-
-    const {userInfo} = this.state; // object destructuring for json data
+    const { userInfo } = this.state; // object destructuring for json data
 
     return (
-      <div className="profile-class-container">
-        <div className="profile-container">
-          <h1 className="profile-title">About Me</h1>
+      <div className="flex justify-center items-center gap-[40px]">
+        <div className="w-full overflow-hidden bg-white flex flex-col items-center justify-center gap-[20px] rounded-md p-[15px] shadow-2xl">
+          <h1 className="text-[28px] font-bold text-center text-[#1e1e1e] overflow-y-hidden">
+            About Me
+          </h1>
 
           {/* Passing props data (full json data) from parent to child */}
           <ProfileUserClass data={userInfo} />
         </div>
 
-        <div className="repo-container">
-          <h1 className="repo-title">
-            Tasty<span>Trails</span> App Repository
+        <div className="w-full overflow-hidden bg-white flex flex-col items-center justify-center rounded-md p-[15px] shadow-2xl">
+          <h1 className="text-[28px] font-bold text-center text-[#1e1e1e] overflow-y-hidden">
+            Tasty<span className="text-[darkorange]">Trails</span> App
+            Repository
           </h1>
 
           {/* Passing props followers from parent to child */}

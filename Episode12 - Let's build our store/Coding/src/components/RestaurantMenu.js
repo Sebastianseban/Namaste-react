@@ -1,14 +1,16 @@
-import { IMG_CDN_URL } from "../../../../public/common/constants";
-import { RestaurantMenuShimmer } from "./Shimmer";
-import { MdStarRate } from "react-icons/md";
 import { useParams } from "react-router-dom";
-import "../styles/RestaurantMenu.css";
+import { useState } from "react";
 import useRestaurantMenuData from "../hooks/useRestaurantMenuData";
 import RestaurantMenuCategory from "./RestaurantMenuCategory";
+import { RestaurantMenuShimmer } from "./Shimmer";
+import { IMG_CDN_URL } from "../../../../public/common/constants";
+import { MdStarRate } from "react-icons/md";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const restaurantInfo = useRestaurantMenuData(resId);
+
+  const [showIndex, setShowIndex] = useState(0);
 
   if (restaurantInfo === null) {
     return <RestaurantMenuShimmer />;
@@ -27,15 +29,11 @@ const RestaurantMenu = () => {
   const cards =
     restaurantInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
-  let itemCards =
-    cards.find((c) => c?.card?.card?.itemCards)?.card?.card?.itemCards || [];
-
-    
-    const categories = cards.filter(
-      (c) =>
-        c?.card?.["card"]?.["@type"] ===
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
+  const categories = cards.filter(
+    (c) =>
+      c?.card?.["card"]?.["@type"] ===
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  );
 
   return (
     <div className="w-[60%]">

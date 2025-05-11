@@ -1,19 +1,18 @@
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import "./index.css";
 import Header from "./components/Header";
-// import Body from "./src/components/Body";
 import Footer from "./components/Footer";
-// import About from "./src/components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Login from "./components/Login";
+import Cart from "./components/Cart";
 import { RestaurantShimmer } from "./components/Shimmer";
-import { useEffect } from "react";
-import userContext from "./utils/userContext";
-// import Grocery from "./src/components/Grocery";
+import UserContext from "./context/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./store/appStore";
+import "./index.css";
 
 /**
  * Chunking
@@ -25,34 +24,33 @@ import userContext from "./utils/userContext";
  * Suspense
  * On-Demand Loading
  */
-const Grocery = lazy(() => import("./components/Grocery"));
-const About = lazy(() => import("./components/About"));
+
 const Body = lazy(() => import("./components/Body"));
+const About = lazy(() => import("./components/About"));
 
 const App = () => {
+  const [userName, setUserName] = useState();
 
-  const [userInfo,setUserInfo] = useState()
-
-
-  useEffect(()=> {
-
+  // Authentication Logic
+  useEffect(() => {
+    // Make an API Call and send username and password
     const data = {
-      name:"sebastian"
-    }
+      name: "Guest User",
+    };
 
-    setUserInfo(data.name)
-
-  },[])
-
+    setUserName(data.name);
+  }, []);
 
   return (
-    <userContext.Provider value={{loggedInUser :userInfo }}>
-    <div className="app">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-    </userContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="w-full flex flex-col justify-between items-center mt-[120px] min-h-[calc(100vh-120px)]">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -73,7 +71,9 @@ const appRouter = createBrowserRouter([
       {
         path: "/about",
         element: (
-          <Suspense fallback={<h1>Loading...</h1>}>
+          <Suspense
+            fallback={<h1 className="text-3xl font-bold">Loading...</h1>}
+          >
             <About />
           </Suspense>
         ),
@@ -83,17 +83,13 @@ const appRouter = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "/grocery",
-        element: (
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Grocery />
-          </Suspense>
-        ),
-      },
-      {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
       },
+      {
+        path: "/cart",
+        element: <Cart />,
+      }
     ],
     errorElement: <Error />,
   },
@@ -103,7 +99,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/hello",
-    element: <h1>Hello, World!!</h1>,
+    element: <h1 className="text-3xl font-bold">Hello, World!!</h1>,
   },
 ]);
 
