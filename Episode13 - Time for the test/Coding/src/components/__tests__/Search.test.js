@@ -7,13 +7,14 @@ import { act } from 'react-dom/test-utils';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
-global.fetch = jest.fn(() => {
+
+global.fetch = jest.fn(()=> {
   return Promise.resolve({
-    json: () => {
-      return Promise.resolve(MOCK_DATA);
-    },
-  });
-});
+    json:()=>{
+      return Promise.resolve(MOCK_DATA)
+    }
+  })
+})
 
 it('should search ResList for burger text input', async () => {
   await act(async () =>
